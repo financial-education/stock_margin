@@ -1,0 +1,15 @@
+#+title: Stock Margin
+#+STARTUP: hideblocks
+
+When an investor buys or shorts a stock on margin, they are using money from their broker.  Simply stated:
+
+- Buying stock on margin means the investor receives a loan from their broker, with the stock as collateral.
+- Shorting stock on margin means the investor receives a loan from their broker, with the cash proceeds from the short as collateral.
+
+
+* Calculating Margin Percent
+
+** Buying (Long) Stock
+
+
+** Shorting (Short) Stock
