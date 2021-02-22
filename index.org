@@ -1,15 +1,40 @@
 #+title: Stock Margin
 #+STARTUP: hideblocks
+#+PROPERTY: header-args :results output :session margin :exports both
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+
 
 When an investor buys or shorts a stock on margin, they are using money from their broker.  Simply stated:
 
 - Buying stock on margin means the investor receives a loan from their broker, with the stock as collateral.
 - Shorting stock on margin means the investor receives a loan from their broker, with the cash proceeds from the short as collateral.
 
+What should be clear to you by the end of the presentation, is that the margin loan is very safe.  Further, since the average investor doesn't know this, brokers are able to charge interest rates which are too high for their level of risk.  Thus, margin lending is a lucrative profit source for brokerages.
+
+Lastly, note market behaves differently in futures and other derivatives markets, and so what follows should only be applied to stock purchases. 
+
 
 * Calculating Margin Percent
 
 ** Buying (Long) Stock
 
+#+BEGIN_SRC python 
+def long_margin_percent(purchase_price, number_shares, initial_margin_percent, present_price):
+    loan_amount = purchase_price * number_shares * (1 - initial_margin_percent)
+    margin_percent = (present_price * number_shares - loan_amount) / (present_price * number_shares)
+    return margin_percent
+
+print("New margin percent is: ", round(100 * long_margin_percent(purchase_price = 100, number_shares = 100, initial_margin_percent = 0.6, present_price = 70), 2), "%")
+#+END_SRC
+
+#+RESULTS:
+: None
 
 ** Shorting (Short) Stock
+
+
+* Margin Call
+
+** Price Triggering Margin Call (Long) 
+
+** Price Triggering Margin Call (Short) 
