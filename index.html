@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-02-22 Mon 10:56 -->
+<!-- 2021-02-23 Tue 12:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Stock Margin</title>
@@ -239,16 +239,21 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org70ddf4a">1. Calculating Margin Percent</a>
+<li><a href="#org8670ee1">1. Calculating Margin Percent</a>
 <ul>
-<li><a href="#org2d56b7a">1.1. Buying (Long) Stock</a></li>
-<li><a href="#org28bbefb">1.2. Shorting (Short) Stock</a></li>
+<li><a href="#orgc345eb5">1.1. Buying (Long) Stock</a></li>
+<li><a href="#orgd667222">1.2. Shorting (Short) Stock</a></li>
 </ul>
 </li>
-<li><a href="#org0dcde0c">2. Margin Call</a>
+<li><a href="#orgb41a8c8">2. Margin Call</a>
 <ul>
-<li><a href="#org621f1de">2.1. Price Triggering Margin Call (Long)</a></li>
-<li><a href="#org4b0e1e0">2.2. Price Triggering Margin Call (Short)</a></li>
+<li><a href="#org40c4ac1">2.1. Maintenance Margin</a></li>
+<li><a href="#org41f92f8">2.2. Calculation</a>
+<ul>
+<li><a href="#org7c9dd4c">2.2.1. Price Triggering Margin Call (Long)</a></li>
+<li><a href="#org8d4b4f3">2.2.2. Price Triggering Margin Call (Short)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -272,12 +277,12 @@ Lastly, note market behaves differently in futures and other derivatives markets
 </p>
 
 
-<div id="outline-container-org70ddf4a" class="outline-2">
-<h2 id="org70ddf4a"><span class="section-number-2">1</span> Calculating Margin Percent</h2>
+<div id="outline-container-org8670ee1" class="outline-2">
+<h2 id="org8670ee1"><span class="section-number-2">1</span> Calculating Margin Percent</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org2d56b7a" class="outline-3">
-<h3 id="org2d56b7a"><span class="section-number-3">1.1</span> Buying (Long) Stock</h3>
+<div id="outline-container-orgc345eb5" class="outline-3">
+<h3 id="orgc345eb5"><span class="section-number-3">1.1</span> Buying (Long) Stock</h3>
 <div class="outline-text-3" id="text-1-1">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #859900;">def</span> <span style="color: #b58900;">long_margin_percent</span><span style="color: #839496;">(</span>purchase_price, number_shares, initial_margin_percent, present_price<span style="color: #839496;">)</span>:
@@ -289,51 +294,85 @@ Lastly, note market behaves differently in futures and other derivatives markets
 </pre>
 </div>
 
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #268bd2;">double</span> <span style="color: #b58900;">long_margin_percent</span>(<span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">purchase_price</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">number_shares</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">initial_margin_percent</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">present_price</span>)
+{
+    <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">loan_amount</span> = purchase_price * number_shares * (1 - initial_margin_percent);
+    <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">margin_percent</span> = (present_price * number_shares - loan_amount) / (present_price * number_shares);
+    <span style="color: #859900;">return</span> margin_percent;
+}
+
+printf(<span style="color: #2aa198;">"New margin percent is: %f\%\n"</span>, long_margin_percent(100, 100, 0.6, 70));
+</pre>
+</div>
+
 <pre class="example">
-Python 3.9.1 (default, Feb  6 2021, 06:49:13) 
-[GCC 10.2.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
-...   File "&lt;stdin&gt;", line 2
-    import codecs, os;__pyfile = codecs.open('''/tmp/pytbOaeS''', encoding='''utf-8''');__code = __pyfile.read().encode('''utf-8''');__pyfile.close();os.remove('''/tmp/pytbOaeS''');exec(compile(__code, '''/tmp/pytbOaeS''', 'exec'));
-    ^
-IndentationError: expected an indented block
-File "&lt;stdin&gt;", line 1
-    loan_amount = purchase_price * number_shares * (1 - initial_margin_percent)
-IndentationError: unexpected indent
-File "&lt;stdin&gt;", line 1
-    margin_percent = (present_price * number_shares - loan_amount) / (present_price * number_shares)
-IndentationError: unexpected indent
-File "&lt;stdin&gt;", line 1
-    return margin_percent
-IndentationError: unexpected indent
-&gt;&gt;&gt; Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-NameError: name 'long_margin_percent' is not defined
+New margin percent is: 0.428571%
+
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org28bbefb" class="outline-3">
-<h3 id="org28bbefb"><span class="section-number-3">1.2</span> Shorting (Short) Stock</h3>
+
+<div id="outline-container-orgd667222" class="outline-3">
+<h3 id="orgd667222"><span class="section-number-3">1.2</span> Shorting (Short) Stock</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #268bd2;">double</span> <span style="color: #b58900;">short_margin_percent</span>(<span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">sale_price</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">number_shares</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">initial_margin_percent</span>, <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">present_price</span>)
+{
+    <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">K</span> = sale_price * number_shares + sale_price * number_shares * initial_margin_percent;
+    <span style="color: #268bd2;">double</span> <span style="color: #6c71c4;">margin_percent</span> = (K - present_price * number_shares) / (present_price * number_shares);
+    <span style="color: #859900;">return</span> margin_percent;
+}
+
+printf(<span style="color: #2aa198;">"New margin percent is: %f\%\n"</span>, short_margin_percent(100, 100, 0.6, 95));
+</pre>
+</div>
+
+<pre class="example">
+New margin percent is: 0.684211%
+
+</pre>
+</div>
 </div>
 </div>
 
 
-<div id="outline-container-org0dcde0c" class="outline-2">
-<h2 id="org0dcde0c"><span class="section-number-2">2</span> Margin Call</h2>
+
+<div id="outline-container-orgb41a8c8" class="outline-2">
+<h2 id="orgb41a8c8"><span class="section-number-2">2</span> Margin Call</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org621f1de" class="outline-3">
-<h3 id="org621f1de"><span class="section-number-3">2.1</span> Price Triggering Margin Call (Long)</h3>
+<div id="outline-container-org40c4ac1" class="outline-3">
+<h3 id="org40c4ac1"><span class="section-number-3">2.1</span> Maintenance Margin</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+To protect their loan, your broker sets a maintenance margin percent.  If your percent margin decreases to the maintenance margin, this triggers a <code>margin call</code>.  A <code>margin call</code> meas you haveto put in more cash to increase your margin, or your broker will close your position.
+</p>
+</div>
 </div>
 
-<div id="outline-container-org4b0e1e0" class="outline-3">
-<h3 id="org4b0e1e0"><span class="section-number-3">2.2</span> Price Triggering Margin Call (Short)</h3>
+<div id="outline-container-org41f92f8" class="outline-3">
+<h3 id="org41f92f8"><span class="section-number-3">2.2</span> Calculation</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+To calculate the price at which we get a margin call, we simply set our margin percent calculations above equal to the maintenance margin, and solve for the new price.
+</p>
+</div>
+
+<div id="outline-container-org7c9dd4c" class="outline-4">
+<h4 id="org7c9dd4c"><span class="section-number-4">2.2.1</span> Price Triggering Margin Call (Long)</h4>
+</div>
+
+<div id="outline-container-org8d4b4f3" class="outline-4">
+<h4 id="org8d4b4f3"><span class="section-number-4">2.2.2</span> Price Triggering Margin Call (Short)</h4>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2021-02-22 Mon 10:56</p>
+<p class="date">Created: 2021-02-23 Tue 12:36</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
