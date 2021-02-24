@@ -16,9 +16,25 @@ Lastly, note market behaves differently in futures and other derivatives markets
 
 * Calculating Margin Percent
 
+Margin percent is defined as: 
+
+$$Margin\ \% = \frac{Equity}{Market\ Value}$$
+
+The only difference between a short and long position is how you calculate =Equity=.  For a long position:
+
+$$Equity = Market\ Value - Loan$$
+
+where $Loan = Purchase\ Price * Number\ of\ Shares * (1 - Initial\ Margin)$.  
+
+For a short position we have:
+
+$$Equity = Cash\ from\ Sale + Margin\ Deposit - Market\ Value$$
+
+where $Margin\ Deposit = Cash\ from\ Sale * Initial\ Margin$. 
+
 ** Buying (Long) Stock
 
-#+BEGIN_SRC python :eval no
+#+BEGIN_SRC python :eval no :exports none
 def long_margin_percent(purchase_price, number_shares, initial_margin_percent, present_price):
     loan_amount = purchase_price * number_shares * (1 - initial_margin_percent)
     margin_percent = (present_price * number_shares - loan_amount) / (present_price * number_shares)
@@ -36,7 +52,7 @@ double long_margin_percent(double purchase_price, double number_shares, double i
     return margin_percent;
 }
 
-printf("New margin percent is: %f\%\n", long_margin_percent(100, 100, 0.6, 70));
+printf("New margin percent is: %.2f\%\n", 100 * long_margin_percent(100, 100, 0.6, 70));
 #+END_SRC
 
 #+RESULTS:
@@ -53,7 +69,7 @@ double short_margin_percent(double sale_price, double number_shares, double init
     return margin_percent;
 }
 
-printf("New margin percent is: %f\%\n", short_margin_percent(100, 100, 0.6, 95));
+printf("New margin percent is: %.2f\%\n", 100 * short_margin_percent(100, 100, 0.6, 95));
 #+END_SRC
 
 #+RESULTS:
@@ -65,12 +81,14 @@ printf("New margin percent is: %f\%\n", short_margin_percent(100, 100, 0.6, 95))
 
 ** Maintenance Margin
 
-To protect their loan, your broker sets a maintenance margin percent.  If your percent margin decreases to the maintenance margin, this triggers a =margin call=.  A =margin call= meas you haveto put in more cash to increase your margin, or your broker will close your position.
+To protect their loan, your broker sets a maintenance margin percent.  If your percent margin decreases to the maintenance margin, this triggers a =margin call=.  A =margin call= means you have to put in more cash to increase your margin, or your broker will close your position.
 
 ** Calculation
 
 To calculate the price at which we get a margin call, we simply set our margin percent calculations above equal to the maintenance margin, and solve for the new price.
 
-*** Price Triggering Margin Call (Long) 
+*** Price Triggering Margin Call (Long)
+
+
 
 *** Price Triggering Margin Call (Short) 
