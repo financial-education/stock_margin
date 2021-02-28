@@ -16,23 +16,34 @@ Lastly, note market behaves differently in futures and other derivatives markets
 
 * Calculating Margin Percent
 
+For what follows let:
+
+- $T$ be the transaction price (initial buy or sell).
+- $C$ be the current stock price.
+- $N$ be the number of shares
+- $IM$ be the initial margin percent.
+- $MM$ be the maintenance margin percent.
+
 Margin percent is defined as: 
 
 $$Margin\ \% = \frac{Equity}{Market\ Value}$$
 
-The only difference between a short and long position is how you calculate =Equity=.  For a long position:
+The only difference between a short and long position is how you calculate =Equity=.  
+
+** Buying (Long) Stock
+
+For a long position:
 
 $$Equity = Market\ Value - Loan$$
 
-where $Loan = Purchase\ Price * Number\ of\ Shares * (1 - Initial\ Margin)$.  
+where 
 
-For a short position we have:
+- $Loan = T * N * (1 - IM)$
+- $Market\ Value = C * N$.
 
-$$Equity = Cash\ from\ Sale + Margin\ Deposit - Market\ Value$$
+Substituting the appropriate numerator, we have:
 
-where $Margin\ Deposit = Cash\ from\ Sale * Initial\ Margin$. 
-
-** Buying (Long) Stock
+$$Margin\ \% = \frac{(C * N - T * N * (1 - IM))}{C * N}$$
 
 #+BEGIN_SRC python :eval no :exports none
 def long_margin_percent(purchase_price, number_shares, initial_margin_percent, present_price):
@@ -56,10 +67,99 @@ printf("New margin percent is: %.2f\%\n", 100 * long_margin_percent(100, 100, 0.
 #+END_SRC
 
 #+RESULTS:
-: New margin percent is: 0.428571%
+: New margin percent is: 42.86%
+
+
+
+#+BEGIN_EXPORT html
+<script>
+var calculate = function() {
+
+  var pp = Number(document.getElementById("pp").value);
+  var n = Number(document.getElementById("n").value);
+  var im = Number(document.getElementById("im").value);
+  var cp = Number(document.getElementById("cp").value);
+  
+  var loan = pp * n * (1 - im);
+  var new_margin = 100 * (cp * n - loan) / (cp * n);
+  
+  document.getElementById("out_new_margin").innerHTML = new_margin.toFixed(2);
+
+}
+</script>
+
+
+<body class="all">
+  <h3>
+    Long Margin Percent Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Purchase Price:</th>
+          <th><input id="pp" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Shares:</th>
+          <th><input id="n" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Initial Margin:</th>
+          <th><input id="im" value="0.6" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Current Price:</th>
+          <th><input id="cp" value="70" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Current Margin: <span id="out_new_margin"></span>%</b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+#+END_EXPORT
+
+#+BEGIN_EXPORT html :eval nil
+<style>
+.fiddle iframe {
+height: 300px //you can manually change this height
+}
+</style>
+
+<div class="fiddle">
+<script async src="https://jsfiddle.net/mbkr1/esgarnzw/20/embed/js,html,css,result/dark/"></script>
+</div>
+#+END_EXPORT
+
 
 
 ** Shorting (Short) Stock
+
+For a short position we have:
+
+$$Equity = Cash\ from\ Sale + Margin\ Deposit - Market\ Value$$
+
+where:
+
+- $Cash\ from\ Sale = T * N$
+- $Margin\ Deposit = T * N * IM$
+
+We thus have:
+
+$$Margin\ \% = \frac{(T * N + T * N * IM - C * N)}{C * N}$$
+
 
 #+BEGIN_SRC C
 double short_margin_percent(double sale_price, double number_shares, double initial_margin_percent, double present_price)
@@ -89,6 +189,63 @@ To calculate the price at which we get a margin call, we simply set our margin p
 
 *** Price Triggering Margin Call (Long)
 
+Doing this for a stock purchase on margin affords:
 
+$$Margin\ \% = \frac{(C * N - T * N * (1 - IM))}{C * N} = MM \Rightarrow$$
+$$C = \frac{T*N*(1 + IM)}{N(MM-1)}$$
+
+To verify this formula is correct, you should plug the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
 
 *** Price Triggering Margin Call (Short) 
+
+For a short margin position:
+
+$$Margin\ \% = \frac{(T * N + T * N * IM - C * N)}{C * N} = MM \Rightarrow$$
+$$C = \frac{T*N*(1 + IM)}{N(MM+1)}$$
+
+Again verify this formula is correct, by plugging the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
+
+* Concept Questions:
+
+If we added interest to the above calculations, would the price at which you get a margin call be higher or lower(long or short position)?
+
+#+BEGIN_EXPORT html
+<script>
+  function showhide(id) {
+       	var e = document.getElementById(id);
+       	e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+     }
+</script>
+<button onclick="showhide('uniquename')">Click to See Answer</button>    
+    	<div id="uniquename" style="display:none;">
+    		<p style="color:blue">Higher for a long position, and lower for a short position.</p>
+    	</div>
+#+END_EXPORT
+
+When would your brokers lose money?
+#+BEGIN_EXPORT html
+<script>
+  function showhide(id) {
+       	var e = document.getElementById(id);
+       	e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+     }
+</script>
+<button onclick="showhide('uniquename1')">Click to See Answer</button>    
+    	<div id="uniquename1" style="display:none;">
+    		<p style="color:blue">If the Market is less than the Loan, which means your Margin Percent is less than 0.</p>
+    	</div>
+#+END_EXPORT
+
+If a stock has a higher volatility, would your broker would want to set the maintenance margin percent higher or lower?
+#+BEGIN_EXPORT html
+<script>
+  function showhide(id) {
+       	var e = document.getElementById(id);
+       	e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+     }
+</script>
+<button onclick="showhide('uniquename2')">Click to See Answer</button>    
+    	<div id="uniquename2" style="display:none;">
+    		<p style="color:blue">Higher</p>
+    	</div>
+#+END_EXPORT
