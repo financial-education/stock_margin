@@ -192,9 +192,69 @@ To calculate the price at which we get a margin call, we simply set our margin p
 Doing this for a stock purchase on margin affords:
 
 $$Margin\ \% = \frac{(C * N - T * N * (1 - IM))}{C * N} = MM \Rightarrow$$
-$$C = \frac{T*N*(1 + IM)}{N(MM-1)}$$
+$$C = \frac{T*N*(1 - IM)}{N(1 - MM)}$$
 
 To verify this formula is correct, you should plug the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
+
+#+BEGIN_EXPORT html
+<script>
+var calculate_long_margin_call = function() {
+
+  var pp = Number(document.getElementById("pp").value);
+  var n = Number(document.getElementById("n").value);
+  var im = Number(document.getElementById("im").value);
+  var mm = Number(document.getElementById("mm").value);
+  
+  var price_margin_call = (pp * n * (1 - im)) / (n * (1 - mm));
+  
+  document.getElementById("out_price_margin_call").innerHTML = price_margin_call.toFixed(2);
+
+}
+</script>
+
+
+<body class="all">
+  <h3>
+    Long Margin Call Calculator
+  </h3>
+
+  <div class="row">
+
+    <div class="column">
+      <table style="width:100%">
+        <tr>
+          <th align="left">Purchase Price:</th>
+          <th><input id="pp" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Number of Shares:</th>
+          <th><input id="n" value="100" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Initial Margin:</th>
+          <th><input id="im" value="0.6" style="width: 50px"></th>
+        </tr>
+        <tr>
+          <th align="left">Maintenance Margin:</th>
+          <th><input id="mm" value="0.3" style="width: 50px"></th>
+        </tr>
+      </table>
+      <button onclick="calculate_long_margin_call()">
+        Calculate.
+      </button>
+    </div>
+
+    <div class="column">
+    <p><b>Margin Call Price: $<span id="out_price_margin_call"></span></b></p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+#+END_EXPORT
+
 
 *** Price Triggering Margin Call (Short) 
 
