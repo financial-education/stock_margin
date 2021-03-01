@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-02-28 Sun 13:25 -->
+<!-- 2021-03-01 Mon 09:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Stock Margin</title>
@@ -261,24 +261,24 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org5ec7c4f">1. Calculating Margin Percent</a>
+<li><a href="#orgf229931">1. Calculating Margin Percent</a>
 <ul>
-<li><a href="#org7664fc1">1.1. Buying (Long) Stock</a></li>
-<li><a href="#orgfd45768">1.2. Shorting (Short) Stock</a></li>
+<li><a href="#org02ca6e9">1.1. Buying (Long) Stock</a></li>
+<li><a href="#orga15362f">1.2. Shorting (Short) Stock</a></li>
 </ul>
 </li>
-<li><a href="#orgce958fa">2. Margin Call</a>
+<li><a href="#org5df4918">2. Margin Call</a>
 <ul>
-<li><a href="#org99d1c8a">2.1. Maintenance Margin</a></li>
-<li><a href="#org50bce0c">2.2. Calculation</a>
+<li><a href="#org1019240">2.1. Maintenance Margin</a></li>
+<li><a href="#org1c4f52a">2.2. Calculation</a>
 <ul>
-<li><a href="#org1efd61a">2.2.1. Price Triggering Margin Call (Long)</a></li>
-<li><a href="#org31fc395">2.2.2. Price Triggering Margin Call (Short)</a></li>
+<li><a href="#orgca810b3">2.2.1. Price Triggering Margin Call (Long)</a></li>
+<li><a href="#orgd6a397d">2.2.2. Price Triggering Margin Call (Short)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgb08235f">3. Concept Questions:</a></li>
+<li><a href="#org3e4febd">3. Concept Questions:</a></li>
 </ul>
 </div>
 </div>
@@ -300,8 +300,8 @@ Lastly, note market behaves differently in futures and other derivatives markets
 </p>
 
 
-<div id="outline-container-org5ec7c4f" class="outline-2">
-<h2 id="org5ec7c4f"><span class="section-number-2">1</span> Calculating Margin Percent</h2>
+<div id="outline-container-orgf229931" class="outline-2">
+<h2 id="orgf229931"><span class="section-number-2">1</span> Calculating Margin Percent</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 For what follows let:
@@ -328,8 +328,8 @@ The only difference between a short and long position is how you calculate <code
 </p>
 </div>
 
-<div id="outline-container-org7664fc1" class="outline-3">
-<h3 id="org7664fc1"><span class="section-number-3">1.1</span> Buying (Long) Stock</h3>
+<div id="outline-container-org02ca6e9" class="outline-3">
+<h3 id="org02ca6e9"><span class="section-number-3">1.1</span> Buying (Long) Stock</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 For a long position:
@@ -437,8 +437,8 @@ var calculate = function() {
 
 
 
-<div id="outline-container-orgfd45768" class="outline-3">
-<h3 id="orgfd45768"><span class="section-number-3">1.2</span> Shorting (Short) Stock</h3>
+<div id="outline-container-orga15362f" class="outline-3">
+<h3 id="orga15362f"><span class="section-number-3">1.2</span> Shorting (Short) Stock</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 For a short position we have:
@@ -488,12 +488,12 @@ New margin percent is: 68.42%
 
 
 
-<div id="outline-container-orgce958fa" class="outline-2">
-<h2 id="orgce958fa"><span class="section-number-2">2</span> Margin Call</h2>
+<div id="outline-container-org5df4918" class="outline-2">
+<h2 id="org5df4918"><span class="section-number-2">2</span> Margin Call</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org99d1c8a" class="outline-3">
-<h3 id="org99d1c8a"><span class="section-number-3">2.1</span> Maintenance Margin</h3>
+<div id="outline-container-org1019240" class="outline-3">
+<h3 id="org1019240"><span class="section-number-3">2.1</span> Maintenance Margin</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 To protect their loan, your broker sets a maintenance margin percent.  If your percent margin decreases to the maintenance margin, this triggers a <code>margin call</code>.  A <code>margin call</code> means you have to put in more cash to increase your margin, or your broker will close your position.
@@ -501,16 +501,16 @@ To protect their loan, your broker sets a maintenance margin percent.  If your p
 </div>
 </div>
 
-<div id="outline-container-org50bce0c" class="outline-3">
-<h3 id="org50bce0c"><span class="section-number-3">2.2</span> Calculation</h3>
+<div id="outline-container-org1c4f52a" class="outline-3">
+<h3 id="org1c4f52a"><span class="section-number-3">2.2</span> Calculation</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 To calculate the price at which we get a margin call, we simply set our margin percent calculations above equal to the maintenance margin, and solve for the new price.
 </p>
 </div>
 
-<div id="outline-container-org1efd61a" class="outline-4">
-<h4 id="org1efd61a"><span class="section-number-4">2.2.1</span> Price Triggering Margin Call (Long)</h4>
+<div id="outline-container-orgca810b3" class="outline-4">
+<h4 id="orgca810b3"><span class="section-number-4">2.2.1</span> Price Triggering Margin Call (Long)</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 Doing this for a stock purchase on margin affords:
@@ -522,7 +522,7 @@ Doing this for a stock purchase on margin affords:
 </p>
 
 <p>
-To verify this formula is correct, you should plug the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
+where C is the <b>highest</b> price at which you would get a margin call.  To verify this formula is correct, you should plug the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
 </p>
 
 <script>
@@ -585,8 +585,8 @@ var calculate_long_margin_call = function() {
 </div>
 
 
-<div id="outline-container-org31fc395" class="outline-4">
-<h4 id="org31fc395"><span class="section-number-4">2.2.2</span> Price Triggering Margin Call (Short)</h4>
+<div id="outline-container-orgd6a397d" class="outline-4">
+<h4 id="orgd6a397d"><span class="section-number-4">2.2.2</span> Price Triggering Margin Call (Short)</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 For a short margin position:
@@ -598,15 +598,15 @@ For a short margin position:
 </p>
 
 <p>
-Again verify this formula is correct, by plugging the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
+where C is the <b>lowest</b> price at which you would get a margin call.  Again verify this formula is correct, by plugging the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
 </p>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb08235f" class="outline-2">
-<h2 id="orgb08235f"><span class="section-number-2">3</span> Concept Questions:</h2>
+<div id="outline-container-org3e4febd" class="outline-2">
+<h2 id="org3e4febd"><span class="section-number-2">3</span> Concept Questions:</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 If we added interest to the above calculations, would the price at which you get a margin call be higher or lower(long or short position)?
@@ -654,7 +654,7 @@ If a stock has a higher volatility, would your broker would want to set the main
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2021-02-28 Sun 13:25</p>
+<p class="date">Created: 2021-03-01 Mon 09:10</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -194,7 +194,7 @@ Doing this for a stock purchase on margin affords:
 $$Margin\ \% = \frac{(C * N - T * N * (1 - IM))}{C * N} = MM \Rightarrow$$
 $$C = \frac{T*N*(1 - IM)}{N(1 - MM)}$$
 
-To verify this formula is correct, you should plug the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
+where C is the *highest* price at which you would get a margin call.  To verify this formula is correct, you should plug the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
 
 #+BEGIN_EXPORT html
 <script>
@@ -263,7 +263,7 @@ For a short margin position:
 $$Margin\ \% = \frac{(T * N + T * N * IM - C * N)}{C * N} = MM \Rightarrow$$
 $$C = \frac{T*N*(1 + IM)}{N(MM+1)}$$
 
-Again verify this formula is correct, by plugging the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
+where C is the *lowest* price at which you would get a margin call.  Again verify this formula is correct, by plugging the answer bank in to your margin percent calculation and ensure the new margin percent is equal to the maintenance margin.
 
 * Concept Questions:
 
