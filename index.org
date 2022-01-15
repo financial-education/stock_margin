@@ -1,4 +1,5 @@
 #+title: Stock Margin
+#+author: Matt Brigida, Ph.D.
 #+STARTUP: hideblocks
 #+PROPERTY: header-args :results output :exports both
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
