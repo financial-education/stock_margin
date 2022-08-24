@@ -3,6 +3,7 @@
 #+STARTUP: hideblocks
 #+PROPERTY: header-args :results output :exports both
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+HTML_HEAD: <style>pre.src{background:#343131;color:white;} </style>
 
 
 When an investor buys or shorts a stock on margin, they are using money from their broker.  Simply stated:

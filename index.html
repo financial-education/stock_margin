@@ -3,202 +3,19 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-01-15 Sat 14:12 -->
+<!-- 2022-08-24 Wed 14:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Stock Margin</title>
 <meta name="author" content="Matt Brigida, Ph.D." />
 <meta name="generator" content="Org Mode" />
-<style>
-  #content { max-width: 60em; margin: auto; }
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #e6e6e6;
-    border-radius: 3px;
-    background-color: #f2f2f2;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: auto;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    top: -8px;
-    right: 12px;
-    padding: 3px;
-    color: #555;
-    background-color: #f2f2f299;
-  }
-  pre.src:hover:before { display: inline; margin-top: 14px;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-authinfo::before { content: 'Authinfo'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-</style>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<style>pre.src{background:#343131;color:white;} </style>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         displayAlign: "center",
@@ -228,24 +45,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3e5aa7b">1. Calculating Margin Percent</a>
+<li><a href="#org92f5a59">1. Calculating Margin Percent</a>
 <ul>
-<li><a href="#org2f98b17">1.1. Buying (Long) Stock</a></li>
-<li><a href="#org6f748b6">1.2. Shorting (Short) Stock</a></li>
+<li><a href="#org368c0ce">1.1. Buying (Long) Stock</a></li>
+<li><a href="#orgbb78f93">1.2. Shorting (Short) Stock</a></li>
 </ul>
 </li>
-<li><a href="#org32fc300">2. Margin Call</a>
+<li><a href="#org8a7bd22">2. Margin Call</a>
 <ul>
-<li><a href="#orgba31ba2">2.1. Maintenance Margin</a></li>
-<li><a href="#org8e9c7fe">2.2. Calculation</a>
+<li><a href="#orgebdffff">2.1. Maintenance Margin</a></li>
+<li><a href="#orgb36c85d">2.2. Calculation</a>
 <ul>
-<li><a href="#orgc39d77e">2.2.1. Price Triggering Margin Call (Long)</a></li>
-<li><a href="#orgde290da">2.2.2. Price Triggering Margin Call (Short)</a></li>
+<li><a href="#org4e43171">2.2.1. Price Triggering Margin Call (Long)</a></li>
+<li><a href="#org095b573">2.2.2. Price Triggering Margin Call (Short)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgd3478f0">3. Concept Questions:</a></li>
+<li><a href="#org0926fec">3. Concept Questions:</a></li>
 </ul>
 </div>
 </div>
@@ -267,8 +84,8 @@ Lastly, note market behaves differently in futures and other derivatives markets
 </p>
 
 
-<div id="outline-container-org3e5aa7b" class="outline-2">
-<h2 id="org3e5aa7b"><span class="section-number-2">1.</span> Calculating Margin Percent</h2>
+<div id="outline-container-org92f5a59" class="outline-2">
+<h2 id="org92f5a59"><span class="section-number-2">1.</span> Calculating Margin Percent</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 For what follows let:
@@ -295,8 +112,8 @@ The only difference between a short and long position is how you calculate <code
 </p>
 </div>
 
-<div id="outline-container-org2f98b17" class="outline-3">
-<h3 id="org2f98b17"><span class="section-number-3">1.1.</span> Buying (Long) Stock</h3>
+<div id="outline-container-org368c0ce" class="outline-3">
+<h3 id="org368c0ce"><span class="section-number-3">1.1.</span> Buying (Long) Stock</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 For a long position:
@@ -324,14 +141,14 @@ Substituting the appropriate numerator, we have:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C">double long_margin_percent(double purchase_price, double number_shares, double initial_margin_percent, double present_price)
+<pre class="src src-C"><span style="color: #ffc777;">double</span> <span style="color: #82aaff;">long_margin_percent</span>(<span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">purchase_price</span>, <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">number_shares</span>, <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">initial_margin_percent</span>, <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">present_price</span>)
 {
-    double loan_amount = purchase_price * number_shares * (1 - initial_margin_percent);
-    double margin_percent = (present_price * number_shares - loan_amount) / (present_price * number_shares);
-    return margin_percent;
+    <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">loan_amount</span> = purchase_price * number_shares * (1 - initial_margin_percent);
+    <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">margin_percent</span> = (present_price * number_shares - loan_amount) / (present_price * number_shares);
+    <span style="color: #c099ff;">return</span> margin_percent;
 }
 
-printf("New margin percent is: %.2f\%\n", 100 * long_margin_percent(100, 100, 0.6, 70));
+printf(<span style="color: #c3e88d;">"New margin percent is: %.2f\%\n"</span>, 100 * long_margin_percent(100, 100, 0.6, 70));
 </pre>
 </div>
 
@@ -404,8 +221,8 @@ var calculate = function() {
 
 
 
-<div id="outline-container-org6f748b6" class="outline-3">
-<h3 id="org6f748b6"><span class="section-number-3">1.2.</span> Shorting (Short) Stock</h3>
+<div id="outline-container-orgbb78f93" class="outline-3">
+<h3 id="orgbb78f93"><span class="section-number-3">1.2.</span> Shorting (Short) Stock</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 For a short position we have:
@@ -434,14 +251,14 @@ We thus have:
 
 
 <div class="org-src-container">
-<pre class="src src-C">double short_margin_percent(double sale_price, double number_shares, double initial_margin_percent, double present_price)
+<pre class="src src-C"><span style="color: #ffc777;">double</span> <span style="color: #82aaff;">short_margin_percent</span>(<span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">sale_price</span>, <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">number_shares</span>, <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">initial_margin_percent</span>, <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">present_price</span>)
 {
-    double K = sale_price * number_shares + sale_price * number_shares * initial_margin_percent;
-    double margin_percent = (K - present_price * number_shares) / (present_price * number_shares);
-    return margin_percent;
+    <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">K</span> = sale_price * number_shares + sale_price * number_shares * initial_margin_percent;
+    <span style="color: #ffc777;">double</span> <span style="color: #ff98a4;">margin_percent</span> = (K - present_price * number_shares) / (present_price * number_shares);
+    <span style="color: #c099ff;">return</span> margin_percent;
 }
 
-printf("New margin percent is: %.2f\%\n", 100 * short_margin_percent(100, 100, 0.6, 95));
+printf(<span style="color: #c3e88d;">"New margin percent is: %.2f\%\n"</span>, 100 * short_margin_percent(100, 100, 0.6, 95));
 </pre>
 </div>
 
@@ -454,12 +271,12 @@ New margin percent is: 68.42%
 
 
 
-<div id="outline-container-org32fc300" class="outline-2">
-<h2 id="org32fc300"><span class="section-number-2">2.</span> Margin Call</h2>
+<div id="outline-container-org8a7bd22" class="outline-2">
+<h2 id="org8a7bd22"><span class="section-number-2">2.</span> Margin Call</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgba31ba2" class="outline-3">
-<h3 id="orgba31ba2"><span class="section-number-3">2.1.</span> Maintenance Margin</h3>
+<div id="outline-container-orgebdffff" class="outline-3">
+<h3 id="orgebdffff"><span class="section-number-3">2.1.</span> Maintenance Margin</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 To protect their loan, your broker sets a maintenance margin percent.  If your percent margin decreases to the maintenance margin, this triggers a <code>margin call</code>.  A <code>margin call</code> means you have to put in more cash to increase your margin, or your broker will close your position.
@@ -467,16 +284,16 @@ To protect their loan, your broker sets a maintenance margin percent.  If your p
 </div>
 </div>
 
-<div id="outline-container-org8e9c7fe" class="outline-3">
-<h3 id="org8e9c7fe"><span class="section-number-3">2.2.</span> Calculation</h3>
+<div id="outline-container-orgb36c85d" class="outline-3">
+<h3 id="orgb36c85d"><span class="section-number-3">2.2.</span> Calculation</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 To calculate the price at which we get a margin call, we simply set our margin percent calculations above equal to the maintenance margin, and solve for the new price.
 </p>
 </div>
 
-<div id="outline-container-orgc39d77e" class="outline-4">
-<h4 id="orgc39d77e"><span class="section-number-4">2.2.1.</span> Price Triggering Margin Call (Long)</h4>
+<div id="outline-container-org4e43171" class="outline-4">
+<h4 id="org4e43171"><span class="section-number-4">2.2.1.</span> Price Triggering Margin Call (Long)</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <p>
 Doing this for a stock purchase on margin affords:
@@ -551,8 +368,8 @@ var calculate_long_margin_call = function() {
 </div>
 
 
-<div id="outline-container-orgde290da" class="outline-4">
-<h4 id="orgde290da"><span class="section-number-4">2.2.2.</span> Price Triggering Margin Call (Short)</h4>
+<div id="outline-container-org095b573" class="outline-4">
+<h4 id="org095b573"><span class="section-number-4">2.2.2.</span> Price Triggering Margin Call (Short)</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 For a short margin position:
@@ -571,8 +388,8 @@ where C is the <b>lowest</b> price at which you would get a margin call.  Again 
 </div>
 </div>
 
-<div id="outline-container-orgd3478f0" class="outline-2">
-<h2 id="orgd3478f0"><span class="section-number-2">3.</span> Concept Questions:</h2>
+<div id="outline-container-org0926fec" class="outline-2">
+<h2 id="org0926fec"><span class="section-number-2">3.</span> Concept Questions:</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 If we added interest to the above calculations, would the price at which you get a margin call be higher or lower(long or short position)?
@@ -621,7 +438,7 @@ If a stock has a higher volatility, would your broker would want to set the main
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Matt Brigida, Ph.D.</p>
-<p class="date">Created: 2022-01-15 Sat 14:12</p>
+<p class="date">Created: 2022-08-24 Wed 14:35</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
