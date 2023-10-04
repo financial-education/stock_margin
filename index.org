@@ -202,12 +202,12 @@ where C is the *highest* price at which you would get a margin call.  To verify 
 <script>
 var calculate_long_margin_call = function() {
 
-  var pp = Number(document.getElementById("pp").value);
-  var n = Number(document.getElementById("n").value);
-  var im = Number(document.getElementById("im").value);
-  var mm = Number(document.getElementById("mm").value);
+  var pp_lmc = Number(document.getElementById("pp_lmc").value);
+  var n_lmc = Number(document.getElementById("n_lmc").value);
+  var im_lmc = Number(document.getElementById("im_lmc").value);
+  var mm_lmc = Number(document.getElementById("mm_lmc").value);
   
-  var price_margin_call = (pp * n * (1 - im)) / (n * (1 - mm));
+  var price_margin_call = (pp_lmc * n_lmc * (1 - im_lmc)) / (n_lmc * (1 - mm_lmc));
   
   document.getElementById("out_price_margin_call").innerHTML = price_margin_call.toFixed(2);
 
@@ -226,19 +226,19 @@ var calculate_long_margin_call = function() {
       <table style="width:100%">
         <tr>
           <th align="left">Purchase Price:</th>
-          <th><input id="pp" value="100" style="width: 50px"></th>
+          <th><input id="pp_lmc" value="100" style="width: 50px"></th>
         </tr>
         <tr>
           <th align="left">Number of Shares:</th>
-          <th><input id="n" value="100" style="width: 50px"></th>
+          <th><input id="n_lmc" value="100" style="width: 50px"></th>
         </tr>
         <tr>
           <th align="left">Initial Margin:</th>
-          <th><input id="im" value="0.6" style="width: 50px"></th>
+          <th><input id="im_lmc" value="0.6" style="width: 50px"></th>
         </tr>
         <tr>
           <th align="left">Maintenance Margin:</th>
-          <th><input id="mm" value="0.3" style="width: 50px"></th>
+          <th><input id="mm_lmc" value="0.3" style="width: 50px"></th>
         </tr>
       </table>
       <button onclick="calculate_long_margin_call()">
